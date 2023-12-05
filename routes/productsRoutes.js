@@ -12,8 +12,8 @@ const router = Router();
 // Sehingga diperlukan access token pada headers
 router.use(handleValidateAccess);
 
+router.get("/", getProductList);
 router.get("/:id", getProductItem);
-router.get("/list", getProductList);
 router.post("/create", postCreateProduct);
 
 export default router;

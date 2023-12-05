@@ -14,6 +14,7 @@ export const postAuthLogin = async (request, response, next) => {
     const { email = "", password } = request.body || {};
 
     const user = await getUserByEmail(email);
+
     if (!user) {
       response.status(404).json({
         message: httpResponseMessage[response.statusCode],
