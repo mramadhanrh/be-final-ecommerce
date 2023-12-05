@@ -1,5 +1,6 @@
 import express from "express";
 import { createUser, getUserByEmail } from "../services/usersServices.js";
+import { generatePasswordHash } from "../utils/passwordOperations.js";
 
 /**
  *
@@ -17,9 +18,10 @@ export const postCreateUser = async (request, response, next) => {
       });
     }
 
-    const user = await createUser(firstName, lastName, email, password);
+    const encryptedPassword = await generatePasswordHash(password);
+    await createUser(firstName, lastName, email, encryptedPassword);
+
     response.status(201).json({
-      data: user,
       message: "User successfully created",
     });
   } catch (e) {
